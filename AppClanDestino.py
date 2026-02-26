@@ -219,6 +219,9 @@ def delete_deportista(doc_id):
 def delete_pegue(doc_id):
     db.collection("Pegues").document(doc_id).delete()
     return redirect("/dashboard")
+@app.route("/health")
+def health():
+    return "OK", 200
 
 if __name__ == "__main__":
     #app.run(debug=True)
