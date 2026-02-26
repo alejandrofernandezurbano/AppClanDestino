@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <title>ClanDestino</title>
+</head>
+
+<body class="bg-light">
+
+    <div class="container-fluid p-3">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h4>ClanDestino</h4>
+            <span class="badge bg-dark">Juez: {{ user }}</span>
+        </div>
+
+        <!-- TABS -->
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+                <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#pegues">Pegues</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#deportistas">Deportistas</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#rutas">Rutas</button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link" data-bs-toggle="tab" data-bs-target="#resultados">Resultados</button>
+            </li>
+        </ul>
+
+        <div class="tab-content mt-3">
+
+            <!-- ================= PEGUES ================= -->
+            <div class="tab-pane fade show active" id="pegues">
+
+                <div class="card shadow-sm p-3 mb-4">
+                    <h5>Registrar Pegue</h5>
+
+                    <form method="POST" action="/add_pegue" class="row g-2">
+
+                        <div class="col-md-3">
+                            <input list="deportistas" name="nombre" class="form-control" placeholder="Buscar deportista" required>
+                            <datalist id="deportistas">
+                                {% for d in deportistas %}
+                                <option value="{{ d.nombre }}">
+                                    {% endfor %}
+                            </datalist>
+                        </div>
+
+                        <div class="col-md-2">
+                            <select name="grado" class="form-select" required>
+                                {% for i in range(0,12) %}
+                                <option value="V{{i}}">V{{i}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="col-md-2">
+                            <input name="color" class="form-control"
+                                   placeholder="Color"
+                                   oninput="this.value = this.value.toUpperCase()"
+                                   required>
+                        </div>
+
+                        <div class="col-md-2">
+                            <select name="sector" class="form-select">
+                                <option>Arco</option>
+                                <option>Placa</option>
+                                <option>Moon</option>
+                                <option>Extraplomo</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-1 d-flex align-items-center">
+                            <input type="radio" name="puntaje" value="100" required> 100
+                        </div>
+
+                        <div class="col-md-1 d-flex align-items-center">
+                            <input type="radio" name="puntaje" value="0"> 0
+                        </div>
+
+                        <div class="col-md-1">
+                            <button class="btn btn-primary w-100">Guardar</button>
+                        </div>
+
+                    </form>
+                </div>
+
+                <!-- TABLA PEGUES -->
+                <div class="card shadow-sm p-3">
+                    <h5>Listado de Pegues</h5>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-sm">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Ruta</th>
+                                    <th>Puntaje</th>
+                                    <th>Juez</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for p in pegues %}
+                                <tr>
+                                    <td>{{ p.nombre }}</td>
+                                    <td>{{ p.ruta }}</td>
+                                    <td>{{ p.puntaje }}</td>
+                                    <td>{{ p.juez }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ================= DEPORTISTAS ================= -->
+            <div class="tab-pane fade" id="deportistas">
+
+                <div class="card shadow-sm p-3 mb-4">
+                    <h5>Agregar Deportista</h5>
+
+                    <form method="POST" action="/add_deportista" class="row g-2">
+
+                        <div class="col-md-4">
+                            <input name="nombre" class="form-control" placeholder="Nombre completo" required>
+                        </div>
+
+                        <div class="col-md-3">
+                            <select name="sexo" class="form-select" required>
+                                <option value="M">Masculino</option>
+                                <option value="F">Femenino</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-2">
+                            <button class="btn btn-success w-100">Agregar</button>
+                        </div>
+
+                    </form>
+                </div>
+
+            </div>
+
+            <!-- ================= RUTAS ================= -->
+            <div class="tab-pane fade" id="rutas">
+
+                <div class="card shadow-sm p-3 mb-4">
+                    <h5>Agregar Ruta</h5>
+
+                    <form method="POST" action="/add_ruta" class="row g-2">
+
+                        <div class="col-md-2">
+                            <select name="grado" class="form-select" required>
+                                {% for i in range(0,12) %}
+                                <option value="V{{i}}">V{{i}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="col-md-2">
+                            <input name="color" class="form-control"
+                                   placeholder="Color"
+                                   oninput="this.value = this.value.toUpperCase()"
+                                   required>
+                        </div>
+
+                        <div class="col-md-3">
+                            <select name="sector" class="form-select">
+                                <option>Arco</option>
+                                <option>Placa</option>
+                                <option>Moon</option>
+                                <option>Extraplomo</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-2">
+                            <button class="btn btn-success w-100">Agregar</button>
+                        </div>
+
+                    </form>
+                </div>
+
+                <!-- LISTADO RUTAS -->
+                <div class="card shadow-sm p-3">
+                    <h5>Listado de Rutas</h5>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-sm">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Grado</th>
+                                    <th>Color</th>
+                                    <th>Sector</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for r in rutas|sort(attribute='grado') %}
+                                <tr>
+                                    <td>{{ r.grado }}</td>
+                                    <td>{{ r.color }}</td>
+                                    <td>{{ r.sector }}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ================= RESULTADOS ================= -->
+            <div class="tab-pane fade" id="resultados">
+
+                <div class="row">
+
+                    <!-- HOMBRES -->
+                    <div class="col-md-6">
+                        <div class="card shadow-sm p-3">
+                            <h5 class="text-primary">Ranking Masculino</h5>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for r in resultados %}
+                                    {% if r.sexo == "M" %}
+                                    <tr>
+                                        <td>{{ r.nombre }}</td>
+                                        <td>{{ r.total }}</td>
+                                    </tr>
+                                    {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <!-- MUJERES -->
+                    <div class="col-md-6">
+                        <div class="card shadow-sm p-3">
+                            <h5 class="text-danger">Ranking Femenino</h5>
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Total</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for r in resultados %}
+                                    {% if r.sexo == "F" %}
+                                    <tr>
+                                        <td>{{ r.nombre }}</td>
+                                        <td>{{ r.total }}</td>
+                                    </tr>
+                                    {% endif %}
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
