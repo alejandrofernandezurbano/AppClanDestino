@@ -222,6 +222,13 @@ def delete_pegue(doc_id):
 @app.route("/health")
 def health():
     return "OK", 200
+@app.route("/testdb")
+def testdb():
+    try:
+        docs = db.collection("Usuarios").limit(1).stream()
+        return "Conectado a Firebase"
+    except Exception as e:
+        return f"Error: {str(e)}"
 
 if __name__ == "__main__":
     #app.run(debug=True)
