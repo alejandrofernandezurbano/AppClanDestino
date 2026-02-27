@@ -205,7 +205,7 @@
 
                     <form method="POST" action="/add_deportista" class="row g-2">
                         <div class="col-md-4">
-                            <input name="nombre" class="form-control" placeholder="Nombre completo" required>
+                            <input name="nombre" class="form-control text-uppercase" placeholder="Nombre completo" oninput="this.value = this.value.toUpperCase()" required>
                         </div>
 
                         <div class="col-md-3">
