@@ -36,7 +36,7 @@ def dashboard():
 
     deportistas_docs = list(db.collection("Deportistas").stream())
     rutas_docs = list(db.collection("Rutas").stream())
-    pegues_docs = list(db.collection("Pegues").stream())
+    pegues_docs = list(db.collection("Pegues").order_by("__name__").stream())
 
     deportistas = []
     for d in deportistas_docs:
