@@ -5,20 +5,10 @@ import firebase_admin
 from firebase_admin import credentials, firestore, auth
 
 
-base64_key = os.environ.get("FIREBASE_KEY_BASE64")
-
-if not base64_key:
-    raise ValueError("FIREBASE_KEY_BASE64 not set")
-
-decoded_key = base64.b64decode(base64_key).decode("utf-8")
-cred_dict = json.loads(decoded_key)
-
-cred = credentials.Certificate(cred_dict)
-
 if not firebase_admin._apps:
+    cred = credentials.Certificate("serviceAccountKey.json")
     firebase_admin.initialize_app(cred)
 
-# 👇 ESTA LÍNEA ES CLAVE
 db = firestore.client()
 '''
 base64_key = os.environ.get("FIREBASE_KEY_BASE64")
