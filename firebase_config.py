@@ -4,9 +4,14 @@ import base64
 import firebase_admin
 from firebase_admin import credentials, firestore, auth
 
-
 if not firebase_admin._apps:
-    cred = credentials.Certificate("serviceAccountKey.json")
+    firebase_json = os.environ.get("FIREBASE_KEY")
+
+    if not firebase_json:
+        raise Exception("FIREBASE_KEY no está configurada")
+
+    cred_dict = json.loads(firebase_json)
+    cred = credentials.Certificate(cred_dict)
     firebase_admin.initialize_app(cred)
 
 db = firestore.client()
