@@ -97,7 +97,7 @@
                                 <option value="N1">N1</option>
                                 <option value="N2">N2</option>
                                 {% for i in range(0,12) %}
-                                <option value="V{{i}}">V{{i}}</option>
+                                <option value="V{{i}}" {% if i == 1 %}selected{% endif %}>V{{i}}</option>
                                 {% endfor %}
                             </select>
                         </div>
