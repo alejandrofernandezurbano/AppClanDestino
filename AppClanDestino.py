@@ -48,7 +48,16 @@ def dashboard():
     rutas = []
     for r in rutas_docs:
         data = r.to_dict()
-        data["grado_num"] = int(data["grado"].replace("V", ""))
+
+        
+        # Si empieza con N → quitar N y restar 2 para que N1<N2<V0
+        if grado_str.startswith("N"):
+            data["grado_num"] = int(grado_str.replace("N", "")) - 2
+        # Si empieza con V → quitar V
+        elif grado_str.startswith("V"):
+            data["grado_num"] = int(grado_str.replace("V", ""))
+        else:
+            data["grado_num"] = 0  # fallback por si hay algo raro
         rutas.append(data)
 
     rutas = sorted(rutas, key=lambda x: (x["sector"], x["grado_num"]))
