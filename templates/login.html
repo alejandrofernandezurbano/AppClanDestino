@@ -8,13 +8,32 @@
             background-image: url("{{ url_for('static', filename='img/Destino.jpg') }}");
             background-size: cover;
             background-position: center;
+            background-repeat: no-repeat;
             background-attachment: fixed;
+            min-height: 100vh;
+
+        }
+        @media (max-width: 768px) {
+        body {
+            background-size: contain;   /* Muestra más imagen */
+            background-position: center top;
+            background-attachment: scroll;
+             }
         }
         .login-card {
         background: rgba(255, 255, 255, 0.55);
         backdrop-filter: blur(5px);
         border-radius: 15px;
-    }
+        }
+        .btn-primary {
+        background-color: #dc3545 !important;
+        border-color: #dc3545 !important;
+        }
+
+       .btn-primary:hover {
+        background-color: #b02a37 !important;
+        border-color: #b02a37 !important;
+        }
     </style>
 </head>
 
