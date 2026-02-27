@@ -229,7 +229,9 @@ def testdb():
         return "Conectado a Firebase"
     except Exception as e:
         return f"Error: {str(e)}"
-
+@app.route("/envtest")
+def envtest():
+    return str(bool(os.environ.get("FIREBASE_KEY")))
 if __name__ == "__main__":
     #app.run(debug=True)
     app.run()
