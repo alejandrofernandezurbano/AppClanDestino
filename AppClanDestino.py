@@ -48,7 +48,7 @@ def dashboard():
     rutas = []
     for r in rutas_docs:
         data = r.to_dict()
-
+        grado_str = data["grado"]  # definir aquí
         
         # Si empieza con N → quitar N y restar 2 para que N1<N2<V0
         if grado_str.startswith("N"):
