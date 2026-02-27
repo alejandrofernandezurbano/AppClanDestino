@@ -5,12 +5,14 @@ import firebase_admin
 from firebase_admin import credentials, firestore, auth
 
 if not firebase_admin._apps:
-    firebase_json = os.environ.get("FIREBASE_KEY")
+    firebase_b64 = os.environ.get("FIREBASE_KEY")
 
-    if not firebase_json:
+    if not firebase_b64:
         raise Exception("FIREBASE_KEY no está configurada")
 
-    cred_dict = json.loads(firebase_json)
+    decoded_json = base64.b64decode(firebase_b64).decode("utf-8")
+    cred_dict = json.loads(decoded_json)
+
     cred = credentials.Certificate(cred_dict)
     firebase_admin.initialize_app(cred)
 
