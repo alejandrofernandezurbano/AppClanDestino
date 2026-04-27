@@ -250,7 +250,20 @@ def delete_pegue(doc_id):
     db.collection("Pegues").document(doc_id).delete()
     return redirect("/dashboard")
 
+@app.route("/delete_ruta/<doc_id>")
+def delete_ruta(doc_id):
 
+    # buscar pegues asociados
+    pegues = db.collection("Pegues").where("ruta_id", "==", doc_id).stream()
+
+    existe = any(True for _ in pegues)
+
+    if existe:
+        return "❌ No puedes eliminar esta ruta porque tiene pegues registrados"
+
+    db.collection("Rutas").document(doc_id).delete()
+
+    return redirect("/dashboard")
 # ================= UTILS =================
 
 @app.route("/logout")
