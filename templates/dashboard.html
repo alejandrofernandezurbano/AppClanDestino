@@ -165,7 +165,42 @@
 
                 </form>
             </div>
+            <div class="card shadow-sm p-3">
+                    <h5>Listado de Deportistas</h5>
 
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-sm">
+                            <thead class="table-dark">
+                                <tr>
+                                    <th>Nombre</th>
+                                    <th>Sexo</th>
+                                    <th>Infantil</th>
+                                    <th>Acciones</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for d in deportistas %}
+                                <tr>
+                                    <td>{{ d.nombre }}</td>
+                                    <td>{{ d.sexo }}</td>
+                                    <td>
+            {% if d.infantil %}
+                👶 Sí
+            {% else %}
+                ❌ No
+            {% endif %}
+        </td>
+                                    <td>
+                                        <a href="/delete_deportista/{{ d.id }}" class="btn btn-sm btn-danger">
+                                            Eliminar
+                                        </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
         </div>
 
         <!-- ================= RUTAS ================= -->
@@ -185,7 +220,21 @@
                     </div>
 
                     <div class="col-md-2">
-                        <input name="color" class="form-control" placeholder="Color">
+                        <select name="color" class="form-select" required>
+        <option value="">Color</option>
+        <option>AGUA MARINA</option>
+        <option>AMARILLA</option>
+        <option>AZUL</option>
+        <option>BLANCA</option>
+        <option>GRIS</option>
+        <option>MORADA</option>
+        <option>NARANJA</option>
+        <option>NEGRA</option>
+        <option>ROCAS</option>
+        <option>ROJA</option>
+        <option>VERDE</option>
+        <option>VERDE LIMA</option>
+    </select>
                     </div>
 
                     <div class="col-md-2">
@@ -207,7 +256,36 @@
 
                 </form>
             </div>
+            <div class="card shadow-sm p-3">
+                    <h5>Listado de Rutas</h5>
 
+                    <table class="table table-bordered table-sm">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Grado</th>
+                                <th>Color</th>
+                                <th>Sector</th>
+                                <th>Infantil</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for r in rutas %}
+                            <tr>
+                                <td>{{ r.grado }}</td>
+                                <td>{{ r.color }}</td>
+                                <td>{{ r.sector }}</td>
+                                 <td>
+            {% if r.infantil %}
+                👶 Sí
+            {% else %}
+                ❌ No
+            {% endif %}
+        </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
         </div>
 
         <!-- ================= RESULTADOS ================= -->
